@@ -1,4 +1,5 @@
 import CliService from "./CliService.js";
+import Installer from "../installers/Installer.js";
 
 export default class Principal {
 
@@ -7,11 +8,27 @@ export default class Principal {
 	}
 
 	async showMenu() {
-		await this.service.packageManagerMenu();
-		await this.service.versioningMenu();
-		await this.service.codeMenu();
-		await this.service.buildMenu();
-		await this.service.ideMenu();
-		await this.service.containerMenu();
+		let installers = [];
+		await this.service.installPackageManager();
+		const versioningInstaller = await this.service.versioningMenu();
+		const codeInstaller = await this.service.codeMenu();
+		const buildInstaller = await this.service.buildMenu();
+		const ideInstaller = await this.service.ideMenu();
+		const containerInstaller = await this.service.containerMenu();
+
+		installers.push(
+			versioningInstaller,
+			codeInstaller,
+			buildInstaller,
+			ideInstaller,
+			containerInstaller
+		);
+
+		installers = installers
+			.flat()
+			.filter(i => i instanceof Installer);
+		for (const installer of installers) {
+			await installer.install();
+		}
 	}
 }
