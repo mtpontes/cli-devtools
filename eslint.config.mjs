@@ -23,10 +23,11 @@ export default [...compat.extends("eslint:recommended"), {
 	},
 
 	rules: {
-		indent: ["error", "tab"],
+		indent: ["warn", "tab"],
 		"linebreak-style": ["error", "windows"],
 		quotes: ["error", "double"],
 		semi: ["error", "always"],
+		"no-unused-vars": ["warn"]
 	},
 }, {
 	files: ["**/.eslintrc.{js,cjs}"],
