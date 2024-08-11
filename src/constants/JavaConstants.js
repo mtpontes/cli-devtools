@@ -3,26 +3,26 @@ export default class JavaConstants {
 	static NAME = "Java";
 
 	static JDK_8 = { 
-		name: "AdoptOpenJDK 8", 
-		winget_id: "AdoptOpenJDK.OpenJDK.8",
-		installation_path: "/path/fic"
+		name: "Eclipse Temurin 8", 
+		winget_id: "EclipseAdoptium.Temurin.8.JDK",
+		installation_path: "C:\\Program Files (x86)\\Eclipse Adoptium\\bin"
 	};
     
 	static JDK_11 = { 
-		name: "OpenJDK 11", 
-		winget_id: "ojdkbuild.openjdk.11.jdk",
-		installation_path: "/path/fic"
+		name: "Eclipse Temurin 11", 
+		winget_id: "EclipseAdoptium.Temurin.11.JDK",
+		installation_path: "C:\\Program Files\\Eclipse Adoptium\\bin"
 	};
     
 	static JDK_17 = { 
-		name: "OpenJDK 17", 
-		winget_id: "ojdkbuild.openjdk.17.jdk",
-		installation_path: "/path/fic"
+		name: "Eclipse Temurin 17", 
+		winget_id: "EclipseAdoptium.Temurin.17.JDK",
+		installation_path: "C:\\Program Files\\Eclipse Adoptium\\bin"
 	};
     
 	static JDK_21 = { 
-		name: "Java SE Dev Kit 21", 
-		winget_id: "Oracle.JDK.21",
-		installation_path: "/path/fic"
+		name: "Eclipse Temurin 21", 
+		winget_id: "EclipseAdoptium.Temurin.21.JDK",
+		installation_path: "C:\\Program Files\\Eclipse Adoptium\\bin"
 	};
 }
