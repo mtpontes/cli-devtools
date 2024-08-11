@@ -16,10 +16,12 @@ export default class ChocolateyInstaller extends Installer {
 			{ silent: true }
 		);
 
-		this.configure();
+		this.#configure();
+
+		console.log("Chocolatey installed successfully");
 	}
 
-	configure() {
+	#configure() {
 		shell.exec(
 			`setx PATH "%PATH%;${ChocolateyInstaller.EXEC_PATH}"`, 
 			{ silent: true });

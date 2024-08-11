@@ -16,10 +16,12 @@ export default class GitInstaller extends Installer {
 			{ silent: true }
 		);
 
-		this.configure();
+		this.#configure();
+		
+		console.log("Git installed successfully");
 	}
 
-	configure() {
+	#configure() {
 		shell.exec(
 			`setx PATH "%PATH%;${GitInstaller.EXEC_PATH}`, 
 			{ silent: true }

@@ -9,4 +9,9 @@ export default class Installer {
 	install() {
 		throw new Error("Method 'install() must be implemented");
 	}
+
+	// eslint-disable-next-line no-unused-private-class-members
+	#configure() {
+		throw new Error("Method 'install() must be implemented");
+	}
 }
