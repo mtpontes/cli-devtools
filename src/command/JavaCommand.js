@@ -2,12 +2,13 @@ import Command from "./Command.js";
 import { select } from "@inquirer/prompts";
 import JavaConstants from "../constants/JavaConstants.js";
 import JavaInstaller from "../installers/code/JavaInstaller.js";
+import JabbaInstaller from "../installers/version_manager/JabbaInstaller.js";
 
 export default class JavaCommand extends Command {
 
 	async execute() {
 		return await select({
-			message: "Escolha um JDK",
+			message: "Choose a JDK or management tool",
 			choices: [
 				{ 
 					name: JavaConstants.JDK_8.name, 
@@ -39,6 +40,11 @@ export default class JavaCommand extends Command {
 						JavaConstants.JDK_8.winget_id, 
 						JavaConstants.JDK_21.installation_path
 					)  
+				},
+
+				{
+					name: "Jabba - Java Version Manager",
+					value: new JabbaInstaller()
 				}
 			]
 		});
