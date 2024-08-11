@@ -6,6 +6,6 @@ export default class Command {
 	}
 
 	async execute() {
-		throw new Error("Method 'configure() must be implemented");
+		throw new Error("Method 'configure()' must be implemented");
 	}
 }
