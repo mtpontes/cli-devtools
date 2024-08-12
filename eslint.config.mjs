@@ -27,7 +27,8 @@ export default [...compat.extends("eslint:recommended"), {
 		"linebreak-style": ["error", "windows"],
 		quotes: ["error", "double"],
 		semi: ["error", "always"],
-		"no-unused-vars": ["warn"]
+		"no-unused-vars": ["warn"],
+		"no-unused-private-class-members": ["warn"]
 	},
 }, {
 	files: ["**/.eslintrc.{js,cjs}"],
