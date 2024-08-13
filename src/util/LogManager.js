@@ -6,10 +6,7 @@ export default class LogManager {
 
   constructor() {}
 
-  getPath() {
-    return this.#filepath;
-  }
-
+  
   writeLog(newLog) {
     let logData = this.#readFile();
     logData = [... logData, ...newLog];
