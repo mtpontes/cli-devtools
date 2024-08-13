@@ -11,68 +11,68 @@ import VisualStudioCodeInstaller from "../installers/ide/VisualStudioCodeInstall
 
 export default class CliService {
 
-	async installPackageManager() {
-		if (shell.which("choco") === null) {
-			new ChocolateyInstaller().install();
-		}
-	}
+  async installPackageManager() {
+    if (shell.which("choco") === null) {
+      new ChocolateyInstaller().install();
+    }
+  }
 
-	async versioningMenu() {
-		const result = await select({
-			message: "Do you want to install Git?",
-			choices: [
-				{ name: "Yes", value: new GitInstaller() },
-				{ name: "No", value: null }
-			]
-		});
+  async versioningMenu() {
+    const result = await select({
+      message: "Do you want to install Git?",
+      choices: [
+        { name: "Yes", value: new GitInstaller() },
+        { name: "No", value: null }
+      ]
+    });
 
-		return result;
-	}
+    return result;
+  }
 	
-	async codeMenu() {
-		const result =  await checkbox({
-			message: "Choose a programming language",
-			choices: [
-				{ name: JavaConstants.NAME, value: new JavaCommand() },
-				{ name: "None", value: null }
-			]
-		});
+  async codeMenu() {
+    const result =  await checkbox({
+      message: "Choose a programming language",
+      choices: [
+        { name: JavaConstants.NAME, value: new JavaCommand() },
+        { name: "None", value: null }
+      ]
+    });
 
-		if (result === null) {
-			return;
-		}
+    if (result === null) {
+      return;
+    }
 
-		const languagesConfigs = [];
-		for (let index = 0; index < result.length; index++) {
+    const languagesConfigs = [];
+    for (let index = 0; index < result.length; index++) {
  			const languageData = await result[index].execute();
-			languagesConfigs.push(languageData);
-		}
+      languagesConfigs.push(languageData);
+    }
 
-		return languagesConfigs;
-	}
+    return languagesConfigs;
+  }
 
-	async buildMenu() {
-		return await checkbox({
-			message: "Choose a build tool",
-			choices: [
-				{ name: "Maven", value: new MavenInstaller() },
-				{ name: "None", value: null }
-			]
-		});
-	}
+  async buildMenu() {
+    return await checkbox({
+      message: "Choose a build tool",
+      choices: [
+        { name: "Maven", value: new MavenInstaller() },
+        { name: "None", value: null }
+      ]
+    });
+  }
 
-	async containerMenu() {
-		return null;
-	}
+  async containerMenu() {
+    return null;
+  }
 	
-	async ideMenu() {
-		return await checkbox({
-			message: "Choose one or more IDEs to install",
-			choices: [
-				{ name: "Eclipse IDE", value: new EclipseInstaller() },
-				{ name: "Spring Tool Suite", value: new SpringToolSuiteInstaller() },
-				{ name: "Visual Studio Code", value: new VisualStudioCodeInstaller() }
-			]
-		});
-	}
+  async ideMenu() {
+    return await checkbox({
+      message: "Choose one or more IDEs to install",
+      choices: [
+        { name: "Eclipse IDE", value: new EclipseInstaller() },
+        { name: "Spring Tool Suite", value: new SpringToolSuiteInstaller() },
+        { name: "Visual Studio Code", value: new VisualStudioCodeInstaller() }
+      ]
+    });
+  }
 }
