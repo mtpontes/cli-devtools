@@ -5,6 +5,9 @@ import JavaConstants from "../constants/JavaConstants.js";
 import MavenInstaller from "../installers/build/MavenInstaller.js";
 import ChocolateyInstaller from "../installers/package_manager/ChocolateyInstaller.js";
 import GitInstaller from "../installers/versioning/GitInstaller.js";
+import EclipseInstaller from "../installers/ide/EclipseInstaller.js";
+import SpringToolSuiteInstaller from "../installers/ide/SpringToolSuiteInstaller.js";
+import VisualStudioCodeInstaller from "../installers/ide/VisualStudioCodeInstaller.js";
 
 export default class CliService {
 
@@ -16,7 +19,7 @@ export default class CliService {
 
 	async versioningMenu() {
 		const result = await select({
-			message: "Do you want to install git?",
+			message: "Do you want to install Git?",
 			choices: [
 				{ name: "Yes", value: new GitInstaller() },
 				{ name: "No", value: null }
@@ -63,6 +66,13 @@ export default class CliService {
 	}
 	
 	async ideMenu() {
-		return null;
+		return await checkbox({
+			message: "Choose one or more IDEs to install",
+			choices: [
+				{ name: "Eclipse IDE", value: new EclipseInstaller() },
+				{ name: "Spring Tool Suite", value: new SpringToolSuiteInstaller() },
+				{ name: "Visual Studio Code", value: new VisualStudioCodeInstaller() }
+			]
+		});
 	}
 }
