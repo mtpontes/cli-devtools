@@ -3,26 +3,28 @@ import shell from "shelljs";
 
 export default class VisualStudioCodeInstaller extends Installer {
 
-	static WINGET_ID = "Microsoft.VisualStudioCode";
-	static EXEC_PATH = `C:\\Users\\${shell.env.USERNAME}\\AppData\\Local\\Programs\\Microsoft VS Code\\bin`;
+	#wingetId = "Microsoft.VisualStudioCode";
+	// eslint-disable-next-line no-undef
+	#path = `${process.env.USERPROFILE}\\AppData\\Local\\Programs\\Microsoft VS Code`;
 
 	constructor() {
 		super();
 	}
 
-	install() {
-		shell.exec(
-			`winget install ${VisualStudioCodeInstaller.CHOCOLATEY_NAME}`, 
+	async install() {
+		await shell.exec(
+			`winget install ${this.#wingetId}`, 
 			{ silent: true }
 		);
 
-		this.configure();
+		return this.#getToolOutput();
 	}
 
-	configure() {
-		shell.exec(
-			`setx PATH "%PATH%;${VisualStudioCodeInstaller.EXEC_PATH}"`, 
-			{ silent: true }
-		);
+	#getToolOutput() {
+		return {
+			name: "Visual Studio Code",
+			path: this.#path,
+			timestamp: new Date().toISOString()
+		};
 	}
 }

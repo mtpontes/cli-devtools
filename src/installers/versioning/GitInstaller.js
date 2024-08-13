@@ -3,28 +3,32 @@ import shell from "shelljs";
 
 export default class GitInstaller extends Installer {
 
-	static WINGET_ID = "Git.Git";
-	static EXEC_PATH = "C:\\Program Files\\Git\\cmd";
+	#wingetId = "Git.Git";
+	#path = "C:\\Program Files\\Git\\cmd";
 
 	constructor() {
 		super();
 	}
 
-	install() {
-		shell.exec(
-			`winget install ${GitInstaller.WINGET_ID}`, 
+	async install() {
+		await shell.exec(
+			`winget install ${this.#wingetId}`, 
 			{ silent: true }
 		);
-
-		this.#configure();
 		
 		console.log("Git installed successfully");
+
+		return this.#getToolOutput();
 	}
 
-	#configure() {
-		shell.exec(
-			`setx PATH "%PATH%;${GitInstaller.EXEC_PATH}`, 
-			{ silent: true }
-		);
+	#getToolOutput() {
+		const version = this.#path.split("maven-")[1];
+
+		return {
+			name: "Maven",
+			version: version,
+			path: this.#path,
+			timestamp: new Date().toISOString()
+		};
 	}
 }

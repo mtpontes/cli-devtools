@@ -3,26 +3,28 @@ import shell from "shelljs";
 
 export default class JabbaInstaller extends Installer {
 
-	static EXEC_PATH = "C:\\Users\\Conquer\\.jabba\\bin";
+	// eslint-disable-next-line no-undef
+	#path = `${process.env.USERPROFILE}\\.jabba`;
     
 	constructor() {
 		super();
 	}
 
-	install() {
-		shell.exec(`
+	async install() {
+		await shell.exec(`
             [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
         Invoke-Expression (
           Invoke-WebRequest https://github.com/shyiko/jabba/raw/master/install.ps1 -UseBasicParsing
         ).Content`);
 
-		this.#configure();
+		return this.#getToolOutput();
 	}
 
-	#configure() {
-		shell.exec(
-			`setx PATH "%PATH%;${JabbaInstaller.EXEC_PATH}"`, 
-			{ silent: true }
-		);
+	#getToolOutput() {
+		return {
+			name: "Jabba",
+			path: this.#path,
+			timestamp: new Date().toISOString()
+		};
 	}
 }

@@ -3,16 +3,27 @@ import shell from "shelljs";
 
 export default class SpringToolSuiteInstaller extends Installer {
 
-	static CHOCOLATEY_NAME = "springtoolsuite";
+	#chocolateyName = "springtoolsuite";
+	#path = "C:\\ProgramData\\chocolatey\\lib\\springtoolsuite";
 
 	constructor() {
 		super();
 	}
 
-	install() {
-		shell.exec(
-			`choco install ${SpringToolSuiteInstaller.CHOCOLATEY_NAME} -y`, 
+	async install() {
+		await shell.exec(
+			`choco install ${this.#chocolateyName} -y`, 
 			{ silent: true }
 		);
+
+		return this.#getToolOutput();
+	}
+
+	#getToolOutput() {
+		return {
+			name: "Spring Tool Suite",
+			path: this.#path,
+			timestamp: new Date().toISOString()
+		};
 	}
 }

@@ -3,27 +3,37 @@ import shell from "shelljs";
 
 export default class ChocolateyInstaller extends Installer {
 
-	static WINGET_ID = "Chocolatey.Chocolatey";
-	static EXEC_PATH = "C:\\ProgramData\\chocolatey";
+	#wingeId = "Chocolatey.Chocolatey";
+	#path = "C:\\ProgramData\\chocolatey";
 
 	constructor() {
 		super();
 	}
 
-	install() {
-		shell.exec(
-			`winget install ${ChocolateyInstaller.WINGET_ID}`,
+	async install() {
+		await shell.exec(
+			`winget install ${this.#wingeId}`,
 			{ silent: true }
 		);
 
 		this.#configure();
 
 		console.log("Chocolatey installed successfully");
+
+		return this.#getToolOutput();
 	}
 
 	#configure() {
 		shell.exec(
-			`setx PATH "%PATH%;${ChocolateyInstaller.EXEC_PATH}"`, 
+			`setx PATH "%PATH%;${this.#path}"`, 
 			{ silent: true });
+	}
+
+	#getToolOutput() {
+		return {
+			name: "Chocolatey",
+			path: this.#path,
+			timestamp: new Date().toISOString()
+		};
 	}
 }
