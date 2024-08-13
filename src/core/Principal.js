@@ -34,5 +34,7 @@ export default class Principal {
   	for (const installer of installers) {
   		logData.push(await installer.install());
   	}
+
+    this.logger.writeLog(logData);
   }
 }
