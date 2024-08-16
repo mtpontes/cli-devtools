@@ -1,44 +1,18 @@
 import globals from "globals";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
+import pluginJs from "@eslint/js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all
-});
 
-export default [...compat.extends("eslint:recommended"), {
-  languageOptions: {
-    globals: {
-      ...globals.browser,
-    },
-
-    ecmaVersion: "latest",
-    sourceType: "module",
+export default [
+  {languageOptions: { globals: globals.browser }},
+  pluginJs.configs.recommended,
+  { 
+    rules: {
+      indent: ["warn", 2],
+      "linebreak-style": ["error", "windows"],
+      quotes: ["error", "double"],
+      semi: ["error", "always"],
+      "no-unused-vars": ["warn"],
+      "no-unused-private-class-members": ["warn"]
+    }
   },
-
-  rules: {
-    indent: ["warn", 2],
-    "linebreak-style": ["error", "windows"],
-    quotes: ["error", "double"],
-    semi: ["error", "always"],
-    "no-unused-vars": ["warn"],
-    "no-unused-private-class-members": ["warn"]
-  },
-}, {
-  files: ["**/.eslintrc.{js,cjs}"],
-
-  languageOptions: {
-    globals: {
-      ...globals.node,
-    },
-
-    ecmaVersion: 5,
-    sourceType: "commonjs",
-  },
-}];
+];
